@@ -1,0 +1,181 @@
+{# people/register.html #}
+{% extends 'people/_base.html' %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for msg in messages %}       
+    <li>
+        <div class="alert alert-{{msg.level_tag}}" role="alert">
+ 	{{msg.message}}
+	</div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form  method="POST">
+    {% csrf_token %}
+        
+    {% for field, errors in people_form.errors.items %}
+        {% for error in errors %}
+            <li class="field_error">{{error}}</li>
+        {% endfor %}
+    {% endfor %} 
+
+    <fieldset class="fieldset">
+        <legend>基本資料</legend>
+
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    {{ people_form.name.label_tag }}
+                    {{ people_form.name }}
+                </div>
+
+                <div class="form-group">
+                    {{ people_form.identity_number.label_tag }}
+                    {{ people_form.identity_number }}
+                </div>
+
+                <div class="form-group">
+                    {{ people_form.gender.label_tag }}
+                    {{ people_form.gender }}
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    {{ people_form.birthday.label_tag }}
+                    {{ people_form.birthday }}
+                </div> 
+
+                <div class="form-group">
+                    {{ people_form.age.label_tag }}
+                    {{ people_form.age }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    {{ people_form.phone.label_tag }}
+                    {{ people_form.phone }}
+                </div> 
+
+                <div class="form-group">
+                    {{ people_form.address.label_tag }}
+                    {{ people_form.address }}
+                </div> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-inline">
+                 <div class="form-group">
+                    {{ people_form.average_monthly_income.label_tag }}
+                    {{ people_form.average_monthly_income }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    
+    <fieldset class="fieldset" id="add-contact-row">
+        <legend>緊急聯絡人資料</legend>
+
+        {{ contact_formset.management_form }}
+        {% for contact_form in contact_formset %}
+            {% if contact_form.name.errors %}
+                {% for error in contact_form.name.errors %}
+                    <li class="field_error">{{ error|escape }}</li>
+                {% endfor %}
+            {% endif %}
+            {% if contact_form.phone.errors %}
+                {% for error in contact_form.phone.errors %}
+                    <li class="field_error">{{ error|escape }}</li>
+                {% endfor %}
+            {% endif %}
+            <div class="link-formset link-formset-row">
+                {{ contact_form.name.label_tag }}
+                {{ contact_form.name }}
+                
+
+                {{ contact_form.phone.label_tag }}
+                {{ contact_form.phone }}
+                
+            </div>
+        {% endfor %}
+    </fieldset>
+
+    
+
+    {% if contact_form.non_form_errors %}
+        {% for error in contact_form.non_form_errors %}
+            {{ error|escape }}
+        {% endfor %}
+    {% endif %}
+    
+
+    <fieldset class="fieldset">
+        <legend>醫療資料</legend>
+
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    {{ people_form.weight.label_tag }}
+                    {{ people_form.weight }}
+                </div> 
+
+                <div class="form-group">
+                    {{ people_form.blood_type.label_tag }}
+                    {{ people_form.blood_type }}
+                </div> 
+            </div>
+        </div>
+
+        <div class="form-group">
+             {{ people_form.hospital_records.label_tag }}
+             {{ people_form.hospital_records }}
+        </div>
+
+        <div class="form-group">
+            {{ people_form.medicine_allergy_history.label_tag }}
+            {{ people_form.medicine_allergy_history }}
+        </div>
+        
+        <div class="form-group">
+            {{ people_form.food_allergy_history.label_tag }}
+            {{ people_form.food_allergy_history }}
+        </div>
+
+         <div class="form-group">
+            {{ people_form.complaint.label_tag }}
+            {{ people_form.complaint }}
+        </div>
+
+        <div class="form-group">
+            <div class="form-inline">
+                <div class="form-group">
+                    {{ people_form.past_history.label_tag }}
+                    {{ people_form.past_history }}
+                </div> 
+            </div>
+        </div>
+    </fieldset>
+    
+  
+
+    <div class="button">
+        <input type="submit" value="登載市民資料">
+    </div>
+</form>
+{% endblock content %}
+
+        
+
+        

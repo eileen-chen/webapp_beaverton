@@ -1,0 +1,34 @@
+.field_error {
+    color: red;
+    font-weight: bold;
+}
+
+.fieldset {
+    margin-bottom: 35px; 
+}
+
+.button{
+    text-align: center;
+    margin-top: 50px; 
+}
+
+
+.contact-input {
+    margin-left: 5px;
+}
+
+.contact-label {
+    margin-left: 5px;
+}
+
+.link-formset-row {
+    margin-bottom: 10px;
+}
+
+.container {
+    padding-bottom: 50px;
+}
+
+.remove_contact{
+    margin-left: 5px;
+}
